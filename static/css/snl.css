@@ -24,7 +24,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    z-index: 99;
+    z-index: 599;
 }
 .snl-holder{
     position: absolute;
@@ -37,7 +37,7 @@
     height: calc(100vh - 80px) !important;*/
     height: 100%;
     width: 100%;
-    z-index: 98;
+    z-index: 498;
 }
 .snl-holder img {
     width: 100%;
@@ -74,7 +74,7 @@
     height: 10%;
     width: 10%;
     border: 0px solid white;
-    padding: 2px;
+    padding: 6px 2px 2px 2px;
     overflow: hidden;
     /*
     white-space: nowrap;
@@ -88,25 +88,29 @@
     display: none;
     font-size: 100%;
     line-height: 100%;
-    text-shadow: 0 0 4px #ffffff;
+    text-shadow: 0 0 8px #000000;
 }
 .player1{
-    color: red;
+    color: #e74c3c;
 }
 .player2{
-    color: blue;
+    color: #3498db;
 }
 .player3{
-    color: green;
+    color: #2ecc71;
 }
 .player4{
-    color: yellow;
+    color: #f1c40f;
 }
 .present{
     display: block !important;
-    padding: 0 2px;
+    padding: 0 8px 0 8px;
 }
-
+.highlightedCell{
+    padding: 6px 2px 2px 2px;
+    background-color: red;
+    opacity:0.9;
+}
 svg > *{
     z-index: 700;
 }

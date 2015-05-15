@@ -20,6 +20,7 @@ var currentDiceValue = 0;
 var ongoingMove = false;
 var diceRollQueue = [];
 var extraLadderRoll = 0;
+var gameEnded = false;
 
 if (typeof jQuery === 'undefined') {
     throw new Error('Bootstrap\'s JavaScript requires jQuery');
@@ -46,48 +47,16 @@ if (typeof jQuery === 'undefined') {
             marker = 10*(Math.floor(i/10)+1) - i%10;
         }
         var id = "id-snl-cell-" + marker;
-        var r = Math.floor(Math.random()*256);
-        var g = Math.floor(Math.random()*256);
-        var b = Math.floor(Math.random()*256);
-        var a = Math.random()*0.2;
-        a = 0;
-        //var content = marker+":"+ r+":"+ g+":" + b+":" + Math.floor(a*10)/10;
-        //var content = "<p class='snl-cell-no'>" + marker + "</p>";
         var playersLegends = '<p class="snl-cell-player player1"><i class="fa fa-lg fa-circle"> </i></p>';
         playersLegends += '<p class="snl-cell-player player2"><i class="fa fa-lg fa-circle"> </i></p>';
         playersLegends += '<p class="snl-cell-player player3"><i class="fa fa-lg fa-circle"> </i></p>';
         playersLegends += '<p class="snl-cell-player player4"><i class="fa fa-lg fa-circle"> </i></p>';
-
-        //var content = "<p class='snl-cell-no'>&nbsp;</p>";
-        //content = "";
-
         var cell = "<div id='" + id + "' class='snl-cell'>" + playersLegends + "</div>";
         snlBoard.append(cell);
-        //$("#" + id).css("border-top-olor", "rgb("+r+","+g+","+b+")");
-        $("#" + id).css("background-color", "rgba("+r+","+g+","+b+","+a+")");
     };
 
 }(jQuery);
 
-+function ($) {
-    'use strict';
-    $(".snl-cell").hover(
-        function() {
-            $( this ).css("opacity", 0.2);
-        }, function() {
-            $( this ).css("opacity", 1.0);
-        }
-    );
-}(jQuery);
-
-+function ($) {
-    'use strict';
-    $(".snl-cell").click(
-        function() {
-            $( this ).css("color", "white");
-        }
-    );
-}(jQuery);
 
 function addToSVG(element, elattr, id) {
    el = $(document.createElementNS('http://www.w3.org/2000/svg', element));
@@ -194,6 +163,8 @@ function createSnake(){
         addToSVG('circle', {cx:(s.X - 5), cy:(s.Y + 5), r:4, fill:"white", "stroke":"white", opacity:0.1}, svgChq);
         addTextToSVG('text', {x:(s.X - 5), y:(s.Y + 5), fill:"white", "font-family":"Helvetica Neue, sans-serif", "font-size":4, "text-anchor":"middle", "alignment-baseline":"middle"}, svgChq, marker);
     }
+    addTextToSVG('text', {x:10, y:188, fill:"white", "font-family":"Helvetica Neue, sans-serif", "font-size":4, "text-anchor":"middle", "alignment-baseline":"middle"}, svgChq, "Start");
+    addTextToSVG('text', {x:10, y:8, fill:"white", "font-family":"Helvetica Neue, sans-serif", "font-size":4, "text-anchor":"middle", "alignment-baseline":"middle"}, svgChq, "Finish");
 }(jQuery);
 
 +function ($) {
@@ -206,8 +177,24 @@ function createSnake(){
             f.X = f.X - 2;
             s.X = s.X + 2;
         }
-        addToSVG('line', {x1:s.X, y1:s.Y, x2:f.X, y2:f.Y, stroke:'#f1c40f', "stroke-width":8, "stroke-opacity": 0.5}, svgLad);
-        addToSVG('line', {x1:s.X, y1:s.Y, x2:f.X, y2:f.Y, stroke:'#34495e', "stroke-width":8, "stroke-opacity": 1, "stroke-dasharray":"1, 3"}, svgLad);
+        var theta = Math.atan((s.Y - f.Y)/(s.X - f.X));
+        const d = 4;
+        // AC: Left rail, BD: Right rail
+        var Ax = (s.X + d*Math.sin(theta)).toFixed(1);
+        var Ay = (s.Y - d*Math.cos(theta)).toFixed(1);
+        var Bx = (s.X - d*Math.sin(theta)).toFixed(1);
+        var By = (s.Y + d*Math.cos(theta)).toFixed(1);
+        var Cx = (f.X + d*Math.sin(theta)).toFixed(1);
+        var Cy = (f.Y - d*Math.cos(theta)).toFixed(1);
+        var Dx = (f.X - d*Math.sin(theta)).toFixed(1);
+        var Dy = (f.Y + d*Math.cos(theta)).toFixed(1);
+
+        //addToSVG('line', {x1:s.X, y1:s.Y, x2:f.X, y2:f.Y, stroke:'#f1c40f', "stroke-width":d, "stroke-opacity": 0.5}, svgLad);
+        //addToSVG('circle', {cx: Ax, cy:Ay, r:0.75, fill:'#ff0000', stroke:"gold", "stroke-width":0.25}, svgLad);
+        //addToSVG('circle', {cx: Bx, cy:By, r:0.75, fill:'#ff0000', stroke:"gold", "stroke-width":0.25}, svgLad);
+        addToSVG('line', {x1:f.X, y1:f.Y, x2:s.X, y2:s.Y, stroke:'white', "stroke-width":(2*d), "stroke-opacity": 1, "stroke-dasharray":"0.25, 3.75"}, svgLad);
+        addToSVG('line', {x1:Ax, y1:Ay, x2:Cx, y2:Cy, stroke:'#dddddd', "stroke-width":0.5, "stroke-opacity": 1}, svgLad);
+        addToSVG('line', {x1:Bx, y1:By, x2:Dx, y2:Dy, stroke:'#dddddd', "stroke-width":0.5, "stroke-opacity": 1}, svgLad);
     }
 }(jQuery);
 
@@ -217,6 +204,10 @@ function createSnake(){
     for (var sn in snakes){
         var s = resolveCoOrdinates(snakes[sn].start);
         var f = resolveCoOrdinates(snakes[sn].finish);
+        if(s.X == f.X){
+            f.X = f.X - 2;
+            //s.X = s.X + 2;
+        }
         var theta = Math.atan((s.Y - f.Y)/(s.X - f.X));
         const d = 6;
         var Ax = (s.X + d*Math.sin(theta)).toFixed(1);
@@ -233,7 +224,7 @@ function createSnake(){
 
         var sweep = (theta<0)?1:0;
         pathdata = 'M'+Ax+','+Ay+' A'+d+','+d+' 0 0,'+sweep+' '+Bx+','+By+' Z';
-        addToSVG('path', {d: pathdata, fill:'#ff0000', stroke:'gold', "stroke-width":0.25}, svgSn);
+        addToSVG('path', {d: pathdata, fill:'#e74c3c', stroke:'gold', "stroke-width":0.25}, svgSn);
         //addToSVG('circle', {cx: s.X, cy:s.Y, r:3, stroke:'#ff0000', "stroke-width":0, fill:'#ff3300'}, svgSn);
         addToSVG('circle', {cx: f.X, cy:f.Y, r:1.5, stroke:'gold', "stroke-width":0.25, fill:'#ff0000'}, svgSn);
     }
@@ -250,42 +241,55 @@ function createSnake(){
         var src = "./static/img/assets/diceface-" + currentDiceValue + ".svg";
         $('#id-snl-dice-big').attr("src", src);
         $('#id-snl-dice-big').fadeIn( "slow" );
-        $('#id-snl-dice-big').delay(1000).fadeOut( "slow" );
+        $('#id-snl-dice-big').delay(500).fadeOut( "slow" );
         $('#id-snl-diceface > img').fadeOut( "fast",function() {
             $('#id-snl-diceface > img').attr("src", src);
         });
-        $('#id-snl-diceface > img').delay(500).fadeIn( "slow" );
+        $('#id-snl-diceface > img').delay(500).fadeIn( "fast" );
     });
 }(jQuery);
 /*
 // Player moves after rolling dice
 */
+function highlightNextCell(){
+    for (var pl=1; pl<=100; ++pl){
+        $("#id-snl-cell-" + pl).css("background-image", "none");
+    }
+    //$("#id-snl-cell-" + lastLocation).css("background-image", "none");
+    $("#id-snl-cell-" + PlayerPosition[currentPlayer]).css("background", "url(static/img/assets/activecell.svg) no-repeat center center").delay(2000);
+    $("#id-snl-cell-" + PlayerPosition[currentPlayer]).css("background-size","100%");
+}
+
 function animateMove(startLocation){
     "snl-cell-player player4 present";
     var idStart = "id-snl-cell-" + startLocation;
     var idEnd = "id-snl-cell-" + PlayerPosition[currentPlayer];
     //$("#"+id+"> .player"+currentPlayer).delay(1000).removeClass("present");
     if(startLocation == 0){
-        console.log("%c"+Player[currentPlayer], 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
-        //0$("#"+idEnd+"> .player"+currentPlayer).fadeIn("slow");
+        //console.log("%c"+Player[currentPlayer], 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
+        $("#"+idEnd+"> .player"+currentPlayer).delay(1500).fadeIn("slow");
     }else{
-        //0$("#"+idStart+"> .player"+currentPlayer).delay(1000).fadeOut("slow",function(){
-            //0$("#"+idEnd+"> .player"+currentPlayer).fadeIn("slow");
-        //0});
+        $("#"+idStart+"> .player"+currentPlayer).delay(500).fadeOut("slow");
+        $("#"+idEnd+"> .player"+currentPlayer).delay(1500).fadeIn("slow");
     }
     //id = "id-snl-cell-" + PlayerPosition[currentPlayer];
     //$("#"+id+"> .player"+currentPlayer).delay(500).addClass("present");
-
+    console.log("%c"+"GG "+idStart+" "+idEnd, 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
     var st = "%c"+Player[currentPlayer]+" moves from "+startLocation+" to "+PlayerPosition[currentPlayer]
     console.log(st, 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
+    // $("#id-snl-cell-" + PlayerPosition[currentPlayer]).addClass("highlightedCell");
 }
+
 
 function makeMoves(){
     for (var v in diceRollQueue){
         var locationBeforeRoll = (PlayerPosition[currentPlayer]);
         PlayerPosition[currentPlayer] = PlayerPosition[currentPlayer] + diceRollQueue[v];
         if (PlayerPosition[currentPlayer] == 100){
-            console.log((PlayerPosition[currentPlayer]), "wins!");
+            gameEnded = true;
+            console.log((Player[currentPlayer]), "wins!");
+            alert("Game Ended. " + Player[currentPlayer] + " won!");
+            return;
         }else if (PlayerPosition[currentPlayer] > 100){
             PlayerPosition[currentPlayer] = 200 - PlayerPosition[currentPlayer];
         }
@@ -315,8 +319,12 @@ function postDiceRoll(){
     diceRollQueue.push(currentDiceValue);
     if (currentDiceValue == 6) {
         ongoingMove = true;
-        if (diceRollQueue.length == 3){
-            diceRollQueue = [];
+        var queued = diceRollQueue.length
+        if ( queued >= 3){
+            var tmp = diceRollQueue[queued-1] + diceRollQueue[queued-2] + diceRollQueue[queued-3];
+            if (tmp == 18){
+                diceRollQueue = [];
+            }
         }
     }else{
         console.log(Player[currentPlayer], "at",PlayerPosition[currentPlayer], "rolled", diceRollQueue);
@@ -336,17 +344,44 @@ function postDiceRoll(){
     $("#id-snl-dice").bind('click', function() {
         console.clear();
         postDiceRoll();
+        if(gameEnded){
+            resetGameplay();
+        }
         if (!ongoingMove){
             for (var i = 1; i <= totalPlayers; ++i){
                 $("#id-snl-player-" + i).removeClass( "active");
                 if (i == currentPlayer){
                     $("#id-snl-player-" + currentPlayer).addClass( "active");
+                    highlightNextCell();
+                    //$("id-snl-cell-" + PlayerPosition[currentPlayer]).css("background-image", "url(static/img/assets/activecell.svg)");
+                    //console.log($("#id-snl-cell-"+PlayerPosition[currentPlayer]));
+                    //$("#id-snl-cell-" + PlayerPosition[currentPlayer]).addClass("highlightedCell");
                 }
             }
         }
-        console.log("A:", PlayerPosition[1], "B:", PlayerPosition[2], "C:", PlayerPosition[3], "D:", PlayerPosition[4]);
+        console.log("R:", PlayerPosition[1], "B:", PlayerPosition[2], "G:", PlayerPosition[3], "Y:", PlayerPosition[4]);
     });
 }(jQuery);
+
+
+/*
+// Reset Gameplay
+*/
+function resetGameplay(){
+    //var Player = {1:"Player 1", 2:"Player 2", 3:"Player 3", 4:"Player 4"};
+    PlayerPosition = {1:0, 2:0, 3:0, 4:0};
+    currentPlayer = 1;
+    currentDiceValue = 0;
+    ongoingMove = false;
+    diceRollQueue = [];
+    extraLadderRoll = 0;
+    //var idStart = "id-snl-cell-" + startLocation;
+    for (var p in PlayerPosition){
+        var cell = "id-snl-cell-" + PlayerPosition[p];
+        $("#"+cell+"> .player"+p).delay(500).fadeOut("slow");
+    }
+}
+
 /*
 $.getJSON('/load', {m: fa}, function(data) {
     $('input[name="index"]').val(data["result"]["mods"].length);
