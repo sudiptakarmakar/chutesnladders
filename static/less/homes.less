@@ -1,0 +1,46 @@
+@import "reset.less";
+@import "variables.less";
+@import "gradient.less";
+@import "mixins.less";
+@import "responsive.less";
+@import "brand-header.less";
+@import "nav.less";
+@import "prima-donna.less";
+@import "siblings.less";
+@import "search.less";
+@import "footer.less";
+
+.centerbox {
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    display: box;
+    box-orient: horizontal;
+    box-pack: center;
+    box-align: center;
+}
+
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    background-color: @gray-lighter;
+}
+.wrapper{
+    background-color: @gray-lightest;
+}
+
+.container{
+    .clearfix();
+}
