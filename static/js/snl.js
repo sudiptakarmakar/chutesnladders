@@ -498,6 +498,22 @@ function showWinModal(){
     });
 }(jQuery);
 
++function ($) {
+    $(document).on("click", "#id-snl-modal-btn-report", function(event){
+        event.preventDefault();
+        $.post('/report',
+            {
+                email: $("#id-snl-report-email").val(),
+                title: $("#id-snl-report-title").val(),
+                details: $("#id-snl-report-details").val()
+            },
+            function(data) {
+                console.log(data.result);
+            });
+        //return false;
+    });
+}(jQuery);
+
 
 +function ($) {
     $("#id-snl-new-game").bind('click', function() {
@@ -522,8 +538,6 @@ function showWinModal(){
 +function ($) {
     'use strict';
     $("#id-snl-dice").bind('click', function() {
-        //$( "#id-snl-dice" ).prop('disabled',true);
-        //$( "#id-snl-dice").children().prop('disabled',true);
         console.clear();
         console.log("R:", PlayerPosition[1], "B:", PlayerPosition[2], "G:", PlayerPosition[3], "Y:", PlayerPosition[4]);
         if (!gameEnded){
