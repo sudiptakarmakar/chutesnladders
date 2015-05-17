@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* jshint expr: true */
 /*jshint esnext: true */
-const debug = true;
+const debug = false;
 
 
 var Player = {1:"Player 1", 2:"Player 2", 3:"Player 3", 4:"Player 4"};
@@ -53,12 +53,12 @@ if (typeof jQuery === 'undefined') {
         if (soundMute){
             $("#id-snl-mute i").removeClass("fa-bell");
             $("#id-snl-mute i").addClass("fa-bell-slash");
-            $("#id-snl-mute i").css("color", "red");
+            $("#id-snl-mute i").css("color", "#e74c3c");
             //$("#id-snl-mute i").text(" Mute");
         }else{
             $("#id-snl-mute i").removeClass("fa-bell-slash");
             $("#id-snl-mute i").addClass("fa-bell");
-            $("#id-snl-mute i").css("color", "green");
+            $("#id-snl-mute i").css("color", "#2ecc71");
             //$("#id-snl-mute i").text(" Sound");
         }
     });
@@ -84,7 +84,7 @@ if (typeof jQuery === 'undefined') {
         snlBoard.append(cell);
     }
     for (var j = 0; j<=10; j += 2){
-        //console.log(10*i, 10*i +1);
+        //// console.log(10*i, 10*i +1);
         $("#id-snl-cell-" + (10*j)).attr("data-placement", "right");
         //$("#id-snl-cell-" + (10*j) + " > .snl-cell-player").attr("data-placement", "right");
         $("#id-snl-cell-" + (10*j +1)).attr("data-placement", "right");
@@ -151,7 +151,7 @@ function createSnake(){
     var f = 0;
     while($.inArray(f, blockedPlaces) !== -1){
         if (co_ > 200){
-            console.log("Max collision reached: finish value set - ", f);
+            // console.log("Max collision reached: finish value set - ", f);
             break;
         }
         co_++;
@@ -183,7 +183,7 @@ function newBoardLayout(){
         var S = createSnake();
         snakes.push({start:S.S, finish:S.F});
     }
-    console.log(snakes, ladders);
+    // console.log(snakes, ladders);
 }
 
 +function ($) {
@@ -267,11 +267,11 @@ function drawSnakes() {
         var Ay = (s.Y - d*Math.cos(theta)).toFixed(1);
         var Bx = (s.X - d*Math.sin(theta)).toFixed(1);
         var By = (s.Y + d*Math.cos(theta)).toFixed(1);
-        //console.log(snakes[sn].start + ": <"+s.X+", "+ s.Y+"> <"+f.X+", "+f.Y+"> "+theta*(180/Math.PI));
-        //console.log(Ax, Ay, Bx, By);
+        //// console.log(snakes[sn].start + ": <"+s.X+", "+ s.Y+"> <"+f.X+", "+f.Y+"> "+theta*(180/Math.PI));
+        //// console.log(Ax, Ay, Bx, By);
         var pathdata = 'M'+f.X+','+f.Y+' L'+Ax+','+Ay+' '+Bx+','+By+' Z L'+s.X+','+s.Y;
         /*if (Math.abs(theta*(180/Math.PI)) == 45){
-            console.log("%c"+pathdata, 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
+            // console.log("%c"+pathdata, 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
         }*/
         addToSVG('path', {d: pathdata, fill:'transparent', stroke:'gold', "stroke-width":0.25}, svgSn);
 
@@ -352,6 +352,7 @@ function highlightNextCell(){
         $("#id-snl-cell-" + PlayerPosition[currentPlayer]).css("background", "url(static/img/assets/activecell.svg) no-repeat center center");
         $("#id-snl-cell-" + PlayerPosition[currentPlayer]).css("background-size","100%");
     }, 2000);
+    //$("#id-snl-cell-" + PlayerPosition[currentPlayer]).notify("Access granted", "success");
 }
 
 function animateMove(startLocation){
@@ -360,7 +361,7 @@ function animateMove(startLocation){
     var idEnd = "id-snl-cell-" + PlayerPosition[currentPlayer];
     //$("#"+id+"> .player"+currentPlayer).delay(1000).removeClass("present");
     if(startLocation === 0){
-        //console.log("%c"+Player[currentPlayer], 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
+        //// console.log("%c"+Player[currentPlayer], 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
         $("#"+idEnd+"> .player"+currentPlayer).delay(1500).fadeIn("slow");
     }else{
         $("#"+idStart+"> .player"+currentPlayer).delay(500).fadeOut("slow");
@@ -371,9 +372,9 @@ function animateMove(startLocation){
     $("#"+idEnd+"> .player"+currentPlayer).attr("data-original-title", Player[currentPlayer] +": "+ PlayerPosition[currentPlayer]);
     $("#"+idEnd+"> .player"+currentPlayer+" + .tooltip > .tooltip-inner").css("color", PlayerCol[currentPlayer]);
 
-    console.log("%c"+"GG "+idStart+" "+idEnd, 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
+    // console.log("%c"+"GG "+idStart+" "+idEnd, 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
     var st = "%c"+Player[currentPlayer]+" moves from "+startLocation+" to "+PlayerPosition[currentPlayer];
-    console.log(st, 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
+    // console.log(st, 'background: #222; color: #bada55; padding: 2px 8px; border-radius: 4px;');
     // $("#id-snl-cell-" + PlayerPosition[currentPlayer]).addClass("highlightedCell");
 }
 
@@ -388,7 +389,7 @@ function makeMoves(){
         else if (PlayerPosition[currentPlayer] === 100){
             gameEnded = true;
             extraLadderRoll = 0;
-            console.log((Player[currentPlayer]), "wins!");
+            // console.log((Player[currentPlayer]), "wins!");
         }
         animateMove(locationBeforeRoll);
 
@@ -396,7 +397,7 @@ function makeMoves(){
             if (ladders[lad].start === PlayerPosition[currentPlayer]){
                 PlayerPosition[currentPlayer] = ladders[lad].finish;
                 setTimeout(playSound ("ladder.mp3"), 1500);
-                console.log("Ladder");
+                // console.log("Ladder");
                 animateMove(ladders[lad].start);
                 ++extraLadderRoll;
                 break;
@@ -406,7 +407,7 @@ function makeMoves(){
             if (snakes[sn].start === PlayerPosition[currentPlayer]){
                 PlayerPosition[currentPlayer] = snakes[sn].finish;
                 setTimeout(playSound ("snake.mp3"), 1500);
-                console.log("Snake");
+                // console.log("Snake");
                 animateMove(snakes[sn].start);
                 break;
             }
@@ -415,7 +416,7 @@ function makeMoves(){
         if(gameEnded){
             break;
         }
-        //console.log(locationBeforeRoll, "-->", PlayerPosition[currentPlayer], $("#"+id));
+        //// console.log(locationBeforeRoll, "-->", PlayerPosition[currentPlayer], $("#"+id));
     }
 }
 
@@ -431,7 +432,7 @@ function postDiceRoll(){
             }
         }
     }else{
-        console.log(Player[currentPlayer], "at",PlayerPosition[currentPlayer], "rolled", diceRollQueue);
+        // console.log(Player[currentPlayer], "at",PlayerPosition[currentPlayer], "rolled", diceRollQueue);
         makeMoves();
         diceRollQueue = [];
         ongoingMove = false;
@@ -457,7 +458,7 @@ function resetGameplay(t){
     setTimeout(function(){
         for (var p in PlayerPosition){
             var cell = "id-snl-cell-" + PlayerPosition[p];
-            console.log(p, $("#"+cell+"> .player"+p));
+            // console.log(p, $("#"+cell+"> .player"+p));
             $("#"+cell+"> .player"+p).delay(t*500).fadeOut("slow");
             $("#"+cell).css("background-image", "none");
             PlayerPosition[p] = 0;
@@ -499,28 +500,107 @@ function showWinModal(){
 }(jQuery);
 
 +function ($) {
-    $(document).on("click", "#id-snl-modal-btn-report", function(event){
-        event.preventDefault();
-        $.post('/report',
-            {
-                email: $("#id-snl-report-email").val(),
-                title: $("#id-snl-report-title").val(),
-                details: $("#id-snl-report-details").val()
-            },
-            function(data) {
-                console.log(data.result);
-            });
-        //return false;
+    $(document).on("change", "#id-snl-report-kind", function(event){
+        $("#id-snl-modal-btn-report").text($("#id-snl-report-kind").val());
     });
 }(jQuery);
 
+
++function ($) {
+    $(document).on("click", "#id-snl-modal-btn-report", function(event){
+        event.preventDefault();
+        var e = $("#id-snl-report-email").val();
+        var t = $("#id-snl-report-title").val();
+        var d = $("#id-snl-report-details").val();
+        var k = $("#id-snl-report-kind option:selected").text().trim();
+        $("#id-snl-report-form").get(0).reset();
+        $("#id-snl-modal-btn-report").text( "Request Enhancement" );
+        $.post('/report',
+            {
+                email: e,
+                title: t,
+                details: d,
+                kind: k
+            },
+            function(data) {
+                console.log(data.result);
+                $.notify.defaults( {
+                    showAnimation: 'fadeIn',
+                    hideAnimation: 'slideUp',
+                    autoHideDelay: 1500
+                });
+                setTimeout(function(){
+                    $.notify("Thank you. We're working on it!", "success");
+                }, 1000);
+            }
+        );
+    });
+}(jQuery);
+
++function ($) {
+    $("#id-snl-player-1").click(function() {
+        var pCell = PlayerPosition[1];
+        var notiLoc = (pCell > 90)? 'bottom right':'top right';
+        $.notify.defaults( {
+            globalPosition: 'top right',
+            elementPosition: notiLoc,
+            showAnimation: 'fadeIn',
+            hideAnimation: 'fadeOut',
+            autoHideDelay: 1500
+        });
+        $("#id-snl-cell-" + PlayerPosition[1]).notify(Player[1] + " is at " + PlayerPosition[1], "error");
+    });
+}(jQuery);
++function ($) {
+    $("#id-snl-player-2").click(function() {
+        var pCell = PlayerPosition[2];
+        var notiLoc = (pCell > 90)? 'bottom right':'top right';
+        $.notify.defaults( {
+            globalPosition: 'top right',
+            elementPosition: notiLoc,
+            showAnimation: 'fadeIn',
+            hideAnimation: 'fadeOut',
+            autoHideDelay: 1500
+        });
+        $("#id-snl-cell-" + PlayerPosition[2]).notify(Player[2]+" is at "+ PlayerPosition[2], "info");
+    });
+}(jQuery);
++function ($) {
+    $("#id-snl-player-3").click(function() {
+        var pCell = PlayerPosition[3];
+        var notiLoc = (pCell > 90)? 'bottom right':'top right';
+        $.notify.defaults( {
+            globalPosition: 'top right',
+            elementPosition: notiLoc,
+            showAnimation: 'fadeIn',
+            hideAnimation: 'fadeOut',
+            autoHideDelay: 1500
+        });
+        $("#id-snl-cell-" + PlayerPosition[3]).notify(Player[3]+" is at "+ PlayerPosition[3], "success");
+    });
+}(jQuery);
+
++function ($) {
+    $("#id-snl-player-4").click(function() {
+        var pCell = PlayerPosition[4];
+        var notiLoc = (pCell > 90)? 'bottom right':'top right';
+        $.notify.defaults( {
+            globalPosition: 'top right',
+            elementPosition: notiLoc,
+            showAnimation: 'fadeIn',
+            hideAnimation: 'fadeOut',
+            autoHideDelay: 1500
+        });
+        $("#id-snl-cell-" + PlayerPosition[4]).notify(Player[4]+" is at "+ PlayerPosition[4], "warn");
+    });
+}(jQuery);
 
 +function ($) {
     $("#id-snl-new-game").bind('click', function() {
         resetGameplay(0);
     });
 
-    $("#id-snl-new-board").bind('click', function() {
+    $("#id-snl-change-board").bind('click', function() {
         newBoardLayout();
         drawLadders();
         drawSnakes();
@@ -535,11 +615,48 @@ function showWinModal(){
     });
 }(jQuery);
 
+/*
+// Player name change form
+*/
++function ($) {
+    $(document).on("keyup", "#id-snl-players-names-p1", function(event){
+        $("#id-snl-players-names-p1").parent().parent().removeClass("has-success");
+        $("#id-snl-players-names-p1").parent().parent().addClass("has-error");
+    });
+    //$("id-snl-players-names-p1");
+
+}(jQuery);
++function ($) {
+    $(document).on("keyup", "#id-snl-players-names-p2", function(event){
+        $("#id-snl-players-names-p2").parent().parent().removeClass("has-success");
+        $("#id-snl-players-names-p2").parent().parent().addClass("has-error");
+    });
+    //$("id-snl-players-names-p2");
+
+}(jQuery);
++function ($) {
+    $(document).on("keyup", "#id-snl-players-names-p3", function(event){
+        $("#id-snl-players-names-p3").parent().parent().removeClass("has-success");
+        $("#id-snl-players-names-p3").parent().parent().addClass("has-error");
+    });
+    //$("id-snl-players-names-p3");
+
+}(jQuery);
++function ($) {
+    $(document).on("keyup", "#id-snl-players-names-p4", function(event){
+        $("#id-snl-players-names-p4").parent().parent().removeClass("has-success");
+        $("#id-snl-players-names-p4").parent().parent().addClass("has-error");
+    });
+    //$("id-snl-players-names-p4");
+
+}(jQuery);
+
+
 +function ($) {
     'use strict';
     $("#id-snl-dice").bind('click', function() {
-        console.clear();
-        console.log("R:", PlayerPosition[1], "B:", PlayerPosition[2], "G:", PlayerPosition[3], "Y:", PlayerPosition[4]);
+        // console.clear();
+        // console.log("R:", PlayerPosition[1], "B:", PlayerPosition[2], "G:", PlayerPosition[3], "Y:", PlayerPosition[4]);
         if (!gameEnded){
             postDiceRoll();
 
@@ -559,7 +676,7 @@ function showWinModal(){
             }, 1000);
 
         }
-        console.log("R:", PlayerPosition[1], "B:", PlayerPosition[2], "G:", PlayerPosition[3], "Y:", PlayerPosition[4]);
+        // console.log("R:", PlayerPosition[1], "B:", PlayerPosition[2], "G:", PlayerPosition[3], "Y:", PlayerPosition[4]);
     });
 }(jQuery);
 

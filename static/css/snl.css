@@ -120,3 +120,6 @@ body{
 svg > *{
     z-index: 700;
 }
+modal-body{
+    overflow-y: auto;
+}
