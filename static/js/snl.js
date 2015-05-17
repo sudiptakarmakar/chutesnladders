@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* jshint expr: true */
 /*jshint esnext: true */
-const debug = false;
+const debug = true;
 
 
 var Player = {1:"Player 1", 2:"Player 2", 3:"Player 3", 4:"Player 4"};
@@ -27,7 +27,7 @@ var diceRollQueue = [];
 var extraLadderRoll = 0;
 var gameEnded = false;
 
-var soundMute = false;
+var soundMute = true;
 
 if (typeof jQuery === 'undefined') {
     throw new Error('Bootstrap\'s JavaScript requires jQuery');
@@ -45,7 +45,7 @@ if (typeof jQuery === 'undefined') {
 // Mute Switch
 */
 +function ($) {
-    $("#id-snl-mute i").css("color", "green");
+    $("#id-snl-mute i").css("color", "red");
     //$("#id-snl-mute i").text(" Sound");
 
     $("#id-snl-mute").click(function(){
@@ -63,7 +63,6 @@ if (typeof jQuery === 'undefined') {
         }
     });
 }(jQuery);
-
 /*
 // Home page related functions
 */
@@ -472,6 +471,7 @@ function resetGameplay(t){
 }
 
 function showWinModal(){
+    playSound("win.mp3");
     $("#id-snl-win-modalLabel > i").text(" Winner: "+Player[currentPlayer]);
     for (var i = 1; i <= totalPlayers; ++i){
         $("#id-snl-result-p" + i + " i").text(" "+Player[i]+": "+PlayerPosition[i]);
@@ -479,6 +479,25 @@ function showWinModal(){
     $('#id-snl-win-modal').modal('show', { keyboard: false });
     //resetGameplay(1);
 }
+
+/*
+// Modal buttons
+*/
++function ($) {
+    $(document).on("click", "#id-snl-modal-btn-game", function(event){
+        resetGameplay(0);
+    });
+}(jQuery);
+
++function ($) {
+    $(document).on("click", "#id-snl-modal-btn-board", function(event){
+        resetGameplay(0);
+        newBoardLayout();
+        drawLadders();
+        drawSnakes();
+    });
+}(jQuery);
+
 
 +function ($) {
     $("#id-snl-new-game").bind('click', function() {

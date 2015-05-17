@@ -7,6 +7,10 @@
 ::-webkit-scrollbar{
     display:none;
 }
+body{
+    background: url("../img/assets/bg_tile.jpg");
+    /*background-size: 30em auto;*/
+}
 .main-content{
     padding-top:60px;
     padding-bottom:20px;
