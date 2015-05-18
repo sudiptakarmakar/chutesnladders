@@ -31,7 +31,9 @@ def reportBug():
             title = kind.upper() +": "+ request.form.get("title", type=str)
             details = request.form.get("details", type=str)
             ts = int(time.time()*(10**6))
-            emailBugReport(sender, kind, title, details, ts)
+            report = request.form.get("reportingEnabled", type=bool)
+            if report:
+                emailBugReport(sender, kind, title, details, ts)
         except Exception as e:
             print("Error: ", str(e))
         d = {

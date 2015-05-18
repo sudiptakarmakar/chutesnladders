@@ -120,6 +120,12 @@ body{
 svg > *{
     z-index: 700;
 }
-modal-body{
-    overflow-y: auto;
+.modal-bodyy{
+    background-color: red;
+    /*background: url("../img/assets/bg_tile.jpg");*/
+    /*background-size: 30em auto;*/
+    overflow: hidden;
+}
+.snl-cell-player{
+    transform: scale(1.5);
 }

@@ -48,16 +48,18 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li id="id-snl-player-1" class="active"><a href="javascript:void(0);"><span><i class="fa fa-lg fa-user player1"> </i></span></a></li>
-                        <li id="id-snl-player-2"><a href="javascript:void(0);"><span><i class="fa fa-lg fa-user player2"> </i></span></a></li>
-                        <li id="id-snl-player-3"><a href="javascript:void(0);"><span><i class="fa fa-lg fa-user player3"> </i></span></a></li>
-                        <li id="id-snl-player-4"><a href="javascript:void(0);"><span><i class="fa fa-lg fa-user player4"> </i></span></a></li>
+                        <li id="id-snl-player-1" class="active"><a href="javascript:void(0);"><span><i class="fa fa-lg fa-user"> </i></span></a></li>
+                        <li id="id-snl-player-2"><a href="javascript:void(0);"><span><i class="fa fa-lg fa-user"> </i></span></a></li>
+                        <li id="id-snl-player-3"><a href="javascript:void(0);"><span><i class="fa fa-lg fa-user"> </i></span></a></li>
+                        <li id="id-snl-player-4"><a href="javascript:void(0);"><span><i class="fa fa-lg fa-user"> </i></span></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="javascript:void(0);" id="id-snl-dice"><span id="id-snl-diceface"><img src="./static/img/assets/diceface.svg" alt="Your browser doesn't support SVG" width="16" height="16"> Roll Dice</span></a></li>
                         <li class="active">
                             <a href="javascript:void(0);" id="id-snl-mute">
-                                <i class="fa fa-bell-slash"></i>
+                                &nbsp;
+                                <i class="fa fa-volume-off"></i>
+                                &nbsp;
                             </a>
                         </li>
                         <li class="dropdown">
@@ -69,7 +71,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li id="id-snl-new-game"><a href="javascript:void(0);"><i class="fa fa-repeat"></i> Restart Game</a></li>
                                 <li id="id-snl-change-board"><a href="javascript:void(0);"><i class="fa fa-random"></i> Change Board</a></li>
-                                <li id="id-snl-players-names" data-toggle="modal" data-target="#id-snl-players-modal"><a href="javascript:void(0);"><i class="fa fa-edit"></i> Change Name</a></li>
+                                <li id="id-snl-players-names" data-toggle="modal" data-target="#id-snl-players-modal"><a href="javascript:void(0);"><i class="fa fa-edit"></i> Edit Names</a></li>
                                 <li id="id-snl-current-score" data-toggle="modal" data-target="#id-snl-win-modal"><a href="javascript:void(0);"><i class="fa fa-list-ol"></i> Leaderboard</a></li>
 
                                 <li class="divider"></li>
@@ -158,6 +160,44 @@
                             </div>
                             <div class="col-xs-6">
                                 <p>This is me!</p>
+
+                                <a href="https://play.google.com/store/apps/developer?id=Sidmeister&hl=en" target="_blank"><i class="fa fa-3x fa-android"></i></a>
+
+                                <a href="https://angel.co/sudipta-karmakar" target="_blank"><i class="fa fa-3x fa-angellist"></i></a>
+
+                                <a href="https://bitbucket.org/sudiptakarmakar/" target="_blank"><i class="fa fa-3x fa-bitbucket"></i></a>
+
+                                <a href="mailto:sudo.karmakar@gmail.com" target="_blank"><i class="fa fa-3x fa-envelope"></i></a>
+
+                                <a href="https://www.facebook.com/sudipta.karmakar" target="_blank"><i class="fa fa-3x fa-facebook-official"></i></a>
+
+                                <a href="https://www.flickr.com/photos/sudiptakarmakar/" target="_blank"><i class="fa fa-3x fa-flickr"></i></a>
+
+                                <a href="https://github.com/sudiptakarmakar" target="_blank"><i class="fa fa-3x fa-github"></i></a>
+
+                                <a href="https://plus.google.com/+SudiptaKarmakar87" target="_blank"><i class="fa fa-3x fa-google-plus"></i></a>
+
+                                <a href="https://news.ycombinator.com/user?id=sudiptak87" target="_blank"><i class="fa fa-3x fa-hacker-news"></i></a>
+
+                                <a href="https://instagram.com/sudipta_karmakar" target="_blank"><i class="fa fa-3x fa-instagram"></i></a>
+
+                                <a href="www.linkedin.com/in/sudiptakarmakar" target="_blank"><i class="fa fa-3x fa-linkedin"></i></a>
+
+                                <a href="javascript:void(0);" target="_blank"><i class="fa fa-3x fa-linux"></i></a>
+
+                                <a href="javascript:void(0);" target="_blank"><i class="fa fa-3x fa-reddit"></i></a>
+
+                                <a href="javascript:void(0);"><i class="fa fa-3x fa-spotify"></i></a>
+
+                                <a href="http://stackoverflow.com/users/1585375/sidmeister" target="_blank"><i class="fa fa-3x fa-stack-overflow"></i></a>
+
+                                <a href="https://twitter.com/karmakarsudipta" target="_blank"><i class="fa fa-3x fa-twitter"></i></a>
+
+                                <a href="javascript:void(0);" target="_blank"><i class="fa fa-3x fa-twitch"></i></a>
+
+                                <a href="javascript:void(0);" target="_blank"><i class="fa fa-3x fa-vine"></i></a>
+
+                                <a href="javascript:void(0);" target="_blank"><i class="fa fa-3x "></i></a>
                             </div>
                         </div>
                         <!--form id="id-snl-contact-form">
@@ -182,39 +222,39 @@
                         <h4 class="modal-title" id="id-snl-players-modalLabel"><i class="fa fa-lg fa-trophy"> Player Names</i></h4>
                     </div>
                     <div class="modal-body">
-                        <fieldset disabled>
+                        <fieldset>
                         <form id="id-snl-players-names-form">
 
-                            <div class="form-group has-success has-feedback">
+                            <div class="form-group has-feedback">
                                 <div class="input-group">
                                     <span class="input-group-addon">1</span>
                                     <input id="id-snl-players-names-p1" type="text" class="form-control" placeholder="Player 1">
                                 </div>
-                                <span class="glyphicon glyphicon-success form-control-feedback" aria-hidden="true"></span>
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
 
-                            <div class="form-group has-success has-feedback">
+                            <div class="form-group has-feedback">
                                 <div class="input-group">
                                     <span class="input-group-addon">2</span>
                                     <input id="id-snl-players-names-p2" type="text" class="form-control" placeholder="Player 2">
                                 </div>
-                                <span class="glyphicon glyphicon-success form-control-feedback" aria-hidden="true"></span>
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
 
-                            <div class="form-group has-success has-feedback">
+                            <div class="form-group has-feedback">
                                 <div class="input-group">
                                     <span class="input-group-addon">3</span>
                                     <input id="id-snl-players-names-p3" type="text" class="form-control" placeholder="Player 3">
                                 </div>
-                                <span class="glyphicon glyphicon-success form-control-feedback" aria-hidden="true"></span>
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
 
-                            <div class="form-group has-success has-feedback">
+                            <div class="form-group has-feedback">
                                 <div class="input-group">
                                     <span class="input-group-addon">4</span>
                                     <input id="id-snl-players-names-p4" type="text" class="form-control" placeholder="Player 4">
                                 </div>
-                                <span class="glyphicon glyphicon-success form-control-feedback" aria-hidden="true"></span>
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             </div>
 
                             <div class="form-group">
@@ -227,7 +267,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal How To Play-->
         <div class="modal fade" id="id-snl-rules-modal" tabindex="-1" role="dialog" aria-labelledby="id-snl-rules-modalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -253,25 +293,26 @@
                         </p>
                     </div>
                     <div class="modal-footer">
+                        <p class="help-block pull-left"><em>* Source: Wikipedia</em></p>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Back To Game</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal Leaderboard-->
         <div class="modal fade" id="id-snl-win-modal" tabindex="-1" role="dialog" aria-labelledby="id-snl-win-modalLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="id-snl-win-modalLabel"><i class="fa fa-lg fa-trophy"> Player won!</i></h4>
+                        <h4 class="modal-title" id="id-snl-win-modalLabel"><i class="fa fa-lg fa-users"> Player won!</i></h4>
                     </div>
                     <div class="modal-body">
-                        <p id="id-snl-result-p1"><i class="fa fa-lg fa-trophy"> Player 1</i></p>
-                        <p id="id-snl-result-p2"><i class="fa fa-lg fa-trophy"> Player 2</i></p>
-                        <p id="id-snl-result-p3"><i class="fa fa-lg fa-trophy"> Player 3</i></p>
-                        <p id="id-snl-result-p4"><i class="fa fa-lg fa-trophy"> Player 4</i></p>
+                        <p id="id-snl-result-p1"><i class="fa fa-lg"> Player 1</i></p>
+                        <p id="id-snl-result-p2"><i class="fa fa-lg"> Player 2</i></p>
+                        <p id="id-snl-result-p3"><i class="fa fa-lg"> Player 3</i></p>
+                        <p id="id-snl-result-p4"><i class="fa fa-lg"> Player 4</i></p>
                     </div>
                     <div class="modal-footer">
                         <button id="id-snl-modal-btn-board" type="button" class="btn btn-default pull-left" data-dismiss="modal">New Board</button>
@@ -282,7 +323,7 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal Bug Report-->
         <div class="modal fade" id="id-snl-report-modal" tabindex="-1" role="dialog" aria-labelledby="id-snl-report-modalLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
