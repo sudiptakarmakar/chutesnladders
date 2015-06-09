@@ -1,9 +1,7 @@
 #!/usr/bin/env python3.4
 
-from flask import Flask, flash, render_template, request, jsonify, \
-    make_response, session, url_for, redirect
-import os
-import json
+from flask import Flask, render_template, request, jsonify, \
+    make_response
 import time
 from sqlitedict import SqliteDict
 
