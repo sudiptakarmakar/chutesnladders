@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* jshint expr: true */
 /*jshint esnext: true */
-const debug = true;
+const debug = false;
 
 
 var Player = {1:"Player 1", 2:"Player 2", 3:"Player 3", 4:"Player 4"};
@@ -324,7 +324,7 @@ function playSound (effect) {
                 playSound ("diceroll.mp3");
             }
 
-            var src = "./static/img/assets/diceface-" + currentDiceValue + ".svg";
+            var src = "./static/images/cnlassets/diceface-" + currentDiceValue + ".svg";
             $('#id-snl-dice-big').attr("src", src);
             $('#id-snl-dice-big').fadeIn( "slow" );
             $('#id-snl-dice-big').delay(500).fadeOut( "slow" );
@@ -349,7 +349,7 @@ function highlightNextCell(){
     }
     //$("#id-snl-cell-" + lastLocation).css("background-image", "none");
     setTimeout(function(){
-        $("#id-snl-cell-" + PlayerPosition[currentPlayer]).css("background", "url(static/img/assets/activecell.svg) no-repeat center center");
+        $("#id-snl-cell-" + PlayerPosition[currentPlayer]).css("background", "url(static/images/cnlassets/activecell.svg) no-repeat center center");
         $("#id-snl-cell-" + PlayerPosition[currentPlayer]).css("background-size","100%");
     }, 2000);
 }
