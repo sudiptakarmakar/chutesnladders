@@ -2,6 +2,7 @@
 *.pdf
 *.ai
 *.txt
+*.sh
 
 # Codekit files
 *.codekit

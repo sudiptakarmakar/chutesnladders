@@ -7,6 +7,10 @@
 ::-webkit-scrollbar{
     display:none;
 }
+body{
+    background: url("../images/cnlassets/bg_tile.jpg");
+    /*background-size: 30em auto;*/
+}
 .main-content{
     padding-top:60px;
     padding-bottom:20px;
@@ -16,8 +20,8 @@
 .wrapper{
     position: relative;
     background-color: rgba(0,255,0,0.0);
-    height: calc(100vh - 80px);
-    width: calc(100vh - 80px);
+    height: ~"calc(100vh - 80px)";
+    width: ~"calc(100vh - 80px)";
     margin: 0 auto;
 }
 .snl-board{
@@ -38,14 +42,16 @@
     height: 100%;
     width: 100%;
     z-index: 498;
-}
-.snl-holder img {
-    width: 100%;
-    height: 100%;
-}
-.snl-holder > svg{
-    width: 100%;
-    height: 100%;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    >svg {
+        width: 100% !important;
+        height: 100% !important;
+    }
 }
 /*
 #id-snl-player-1 > a{
@@ -113,6 +119,12 @@
     background-color: red;
     opacity:0.9;
 }
-svg > *{
-    z-index: 700;
+.modal-bodyy{
+    background-color: red;
+    /*background: url("../img/assets/bg_tile.jpg");*/
+    /*background-size: 30em auto;*/
+    overflow: hidden;
+}
+.snl-cell-player{
+    transform: scale(1.5);
 }
