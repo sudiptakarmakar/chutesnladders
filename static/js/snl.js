@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* jshint expr: true */
 /*jshint esnext: true */
-const debug = true;
+var debug = true;
 
 var Player = {1:"Player 1", 2:"Player 2", 3:"Player 3", 4:"Player 4"};
 var PlayerCol = {1:"#e74c3c", 2:"#3498db", 3:"#2ecc71", 4:"f1c40f"};
@@ -130,7 +130,7 @@ function resolveCoOrdinates(cell){
 //  Generate Random Points
 */
 function createLadder(){
-    const MAX_START = 81;
+    var MAX_START = 81;
     var s = 0;
     while($.inArray(s, blockedPlaces) !== -1){
         s = Math.floor(Math.random()*MAX_START);
@@ -148,7 +148,7 @@ function createLadder(){
 }
 
 function createSnake(){
-    const MIN_START = 11;
+    var MIN_START = 11;
     var s = 0;
     while($.inArray(s, blockedPlaces) !== -1){
         s = MIN_START + Math.floor(Math.random()*(100 - MIN_START));
@@ -227,7 +227,7 @@ function drawLadders() {
             s.X = s.X + 2;
         }
         var theta = Math.atan((s.Y - f.Y)/(s.X - f.X));
-        const d = 4;
+        var d = 4;
         // AC: Left rail, BD: Right rail
         var Ax = (s.X + d*Math.sin(theta)).toFixed(1);
         var Ay = (s.Y - d*Math.cos(theta)).toFixed(1);
@@ -261,7 +261,7 @@ function drawSnakes() {
             f.X = f.X - 2;
         }
         var theta = Math.atan((s.Y - f.Y)/(s.X - f.X));
-        const d = 6;
+        var d = 6;
         var Ax = (s.X + d*Math.sin(theta)).toFixed(1);
         var Ay = (s.Y - d*Math.cos(theta)).toFixed(1);
         var Bx = (s.X - d*Math.sin(theta)).toFixed(1);
