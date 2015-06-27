@@ -2,7 +2,7 @@
 /* jshint unused: false */
 /* jshint expr: true */
 /*jshint esnext: true */
-var debug = true;
+var debug = false;
 
 var Player = {1:"Player 1", 2:"Player 2", 3:"Player 3", 4:"Player 4"};
 var PlayerCol = {1:"#e74c3c", 2:"#3498db", 3:"#2ecc71", 4:"f1c40f"};
